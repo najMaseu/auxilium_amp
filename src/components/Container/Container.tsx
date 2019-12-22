@@ -16,7 +16,7 @@ const container = css({
 });
 
 const innerContainer = css({
-  maxWidth: "1366px",
+  maxHeight: "1366px",
   display: "flex",
   justifyContent: "center",
   alignItems: "center"
