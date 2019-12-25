@@ -2,6 +2,11 @@ import React from "react";
 import { injectGlobal } from "emotion";
 import { WebPlayer } from "./components/WebPlayer/WebPlayer";
 import { Container } from "./components/Container/Container";
+import { StartView } from "./views/StartView";
+import { Settings } from "./components/Settings/Settings";
+import { Client as Styletron } from "styletron-engine-atomic";
+import { Provider as StyletronProvider } from "styletron-react";
+import { DarkTheme, BaseProvider } from "baseui";
 
 injectGlobal`
 html, body, div, span, applet, object, iframe,
@@ -23,6 +28,9 @@ time, mark, audio, video {
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
+}
+html {
+	background: #000
 }
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
@@ -49,10 +57,19 @@ table {
 `;
 
 const App: React.FC = () => {
+  const engine = new Styletron();
   return (
-    <Container>
-      <WebPlayer />
-    </Container>
+    <>
+      <StyletronProvider value={engine}>
+        <BaseProvider theme={DarkTheme}>
+          <StartView />
+          <Container>
+            <Settings />
+            <WebPlayer />
+          </Container>
+        </BaseProvider>
+      </StyletronProvider>
+    </>
   );
 };
 

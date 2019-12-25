@@ -11,13 +11,12 @@ const container = css({
   display: "flex",
   justifyContent: "center",
   height: "100%",
-  minHeight: "100vh",
-  background: "black"
+  minHeight: "100vh"
 });
 
 const innerContainer = css({
-  maxHeight: "1366px",
+  width: "1366px",
   display: "flex",
-  justifyContent: "center",
+  justifyContent: "space-between",
   alignItems: "center"
 });
