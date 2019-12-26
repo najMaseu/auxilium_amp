@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useRef } from "react";
 import { injectGlobal } from "emotion";
 import { StartView } from "./views/StartView";
 import { Client as Styletron } from "styletron-engine-atomic";
 import { Provider as StyletronProvider } from "styletron-react";
 import { DarkTheme, BaseProvider } from "baseui";
 import { AmpView } from "./views/AmpView";
+import { Spinner } from "./components/Spinner/Spinner";
+import { setupMaster } from "cluster";
 
 injectGlobal`
 html, body, div, span, applet, object, iframe,
@@ -56,11 +58,22 @@ table {
 
 const App: React.FC = () => {
   const engine = new Styletron();
+  const ampRef = useRef<HTMLDivElement>(null);
+
+  const scrollToAmp = () => {
+    window.scrollTo({
+      top: ampRef.current!.offsetTop,
+      behavior: "smooth"
+    });
+  };
+
   return (
     <>
+      {/* <Spinner /> */}
       <StyletronProvider value={engine}>
         <BaseProvider theme={DarkTheme}>
-          <StartView />
+          <StartView scrollToRef={scrollToAmp} />
+          <div ref={ampRef}></div>
           <AmpView />
         </BaseProvider>
       </StyletronProvider>

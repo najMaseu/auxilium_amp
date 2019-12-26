@@ -2,7 +2,11 @@ import React from "react";
 import { Header } from "../components/Header/Header";
 import { css } from "emotion";
 
-export const StartView: React.FC = () => {
+interface StartViewProps {
+  scrollToRef: () => void;
+}
+
+export const StartView: React.FC<StartViewProps> = ({ scrollToRef }) => {
   return (
     <div
       style={{
@@ -17,6 +21,7 @@ export const StartView: React.FC = () => {
         height="120"
         viewBox="0 0 18 18"
         className={iconChevron}
+        onClick={scrollToRef}
       >
         <path d="M7.5 4.5L6.44 5.56 9.88 9l-3.44 3.44L7.5 13.5 12 9z" />
       </svg>
@@ -29,5 +34,9 @@ const iconChevron = css({
   transform: "rotate(90deg)",
   position: "absolute",
   left: "calc(50% - 60px)",
-  bottom: 2
+  bottom: 2,
+  transition: "all 0.3s ease",
+  ":hover": {
+    transform: "scale(1.1) rotate(90deg) translateX(10px)"
+  }
 });

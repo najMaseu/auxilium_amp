@@ -3,7 +3,6 @@ import { css } from "emotion";
 
 export const header = css({
   fontFamily: fontFamilies.ROBOTO,
-
   div: {
     display: "inline-flex",
     flexDirection: "column",
