@@ -1,12 +1,10 @@
 import React from "react";
 import { injectGlobal } from "emotion";
-import { WebPlayer } from "./components/WebPlayer/WebPlayer";
-import { Container } from "./components/Container/Container";
 import { StartView } from "./views/StartView";
-import { Settings } from "./components/Settings/Settings";
 import { Client as Styletron } from "styletron-engine-atomic";
 import { Provider as StyletronProvider } from "styletron-react";
 import { DarkTheme, BaseProvider } from "baseui";
+import { AmpView } from "./views/AmpView";
 
 injectGlobal`
 html, body, div, span, applet, object, iframe,
@@ -63,10 +61,7 @@ const App: React.FC = () => {
       <StyletronProvider value={engine}>
         <BaseProvider theme={DarkTheme}>
           <StartView />
-          <Container>
-            <Settings />
-            <WebPlayer />
-          </Container>
+          <AmpView />
         </BaseProvider>
       </StyletronProvider>
     </>

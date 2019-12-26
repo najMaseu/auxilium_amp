@@ -1,7 +1,6 @@
 import React from "react";
 import { SliderBase } from "../SilderBase/SliderBase";
-import { css } from "emotion";
-import { fontFamilies } from "../../helpers/consts";
+import { DescribedSliderCOntainer } from "./DescribedSlider.styles";
 
 interface DescribedSliderProps {
   text: string;
@@ -15,17 +14,3 @@ export const DescribedSlider: React.FC<DescribedSliderProps> = ({ text }) => {
     </div>
   );
 };
-
-const DescribedSliderCOntainer = css({
-  color: "white",
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "flex-start",
-  alignItems: "flex-start",
-  padding: 0,
-  p: {
-    fontFamily: fontFamilies.ROBOTO,
-    marginLeft: 16,
-    fontSize: "1rem"
-  }
-});

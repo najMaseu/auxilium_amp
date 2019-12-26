@@ -1,7 +1,6 @@
 import React from "react";
-import { css } from "emotion";
 import { DescribedSlider } from "../DescribedSlider/DescribedSlider";
-import { fontFamilies } from "../../helpers/consts";
+import { settingsContainer, title } from "./Settings.style";
 
 export const Settings: React.FC = () => {
   return (
@@ -16,18 +15,3 @@ export const Settings: React.FC = () => {
     </div>
   );
 };
-
-const title = css({
-  background: "white",
-  fontSize: "4rem",
-  fontWeight: 500,
-  marginLeft: 16,
-  marginBottom: 24,
-  padding: "14px 64px 14px 24px  ",
-  fontFamily: fontFamilies.ROBOTO
-});
-
-const settingsContainer = css({
-  display: "flex",
-  flexDirection: "column"
-});
