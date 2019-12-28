@@ -8,8 +8,10 @@ export const header = css({
     flexDirection: "column",
     alignItems: "flex-start",
     position: "absolute",
-    left: "50%",
+    right: "-50%",
     bottom: "50%",
+    transform: "translateX(400px)",
+    opacity: 0,
 
     h1: {
       display: "inline",
@@ -17,6 +19,7 @@ export const header = css({
       padding: "14px 35px 0 35px",
       fontSize: "4rem",
       fontWeight: 500,
+      border: "none",
       ":nth-child(2)": {
         paddingTop: 5,
         paddingBottom: 14
@@ -25,6 +28,7 @@ export const header = css({
     h2: {
       color: "white",
       fontSize: "2rem",
+      border: "none",
       marginTop: 30
     }
   }

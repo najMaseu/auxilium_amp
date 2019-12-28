@@ -1,14 +1,32 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { Header } from "../components/Header/Header";
 import { css } from "emotion";
+import anime from "animejs";
 
 interface StartViewProps {
   scrollToRef: () => void;
 }
 
 export const StartView: React.FC<StartViewProps> = ({ scrollToRef }) => {
+  const startView = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    console.log(startView.current?.firstChild?.firstChild);
+    anime({
+      targets: startView.current?.firstChild?.firstChild,
+      scale: 0.9,
+      right: 0,
+      left: "50%",
+      opacity: 1,
+      duration: 1200,
+      easing: "easeOutElastic(1, 2)",
+      delay: 600
+    });
+  });
+
   return (
     <div
+      ref={startView}
       style={{
         height: "100vh",
         width: "100wh"
