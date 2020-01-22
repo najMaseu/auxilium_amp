@@ -10,6 +10,9 @@ export const container = css({
 export const innerContainer = css({
   width: "1366px",
   display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center"
+  justifyContent: "space-evenly",
+  alignItems: "center",
+  "@media (max-width: 1280px)": {
+    width: "1200px"
+  }
 });

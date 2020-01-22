@@ -30,6 +30,15 @@ export const header = css({
       fontSize: "2rem",
       border: "none",
       marginTop: 30
+    },
+    "@media (max-width: 1280px)": {
+      h1: {
+        fontSize: "2.5em",
+        padding: "10px 20px 0 20px"
+      },
+      h2: {
+        fontSize: "1.5em"
+      }
     }
   }
 });

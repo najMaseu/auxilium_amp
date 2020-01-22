@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from "react";
 //@ts-ignore
 import sound from "/Users/mac/Desktop/auxilium_amp/src/static/sound.wav";
 import { drawAnalyser } from "../../helpers/drawAnalyser";
+import { canvas } from "./WebPlayer.styles";
 
 export const WebPlayer: React.FC = () => {
   const audio = useRef<HTMLMediaElement>(null);
@@ -39,7 +40,13 @@ export const WebPlayer: React.FC = () => {
         <source src={sound} type="audio/wav" />
       </audio>
 
-      <canvas ref={drawing} id="drawing" width="686" height="150">
+      <canvas
+        className={canvas}
+        ref={drawing}
+        id="drawing"
+        width="686"
+        height="150"
+      >
         <p>Your browser does not support the canvas tag...</p>
       </canvas>
     </>
