@@ -8,11 +8,8 @@ export const container = css({
 });
 
 export const innerContainer = css({
-  width: "1366px",
+  width: "1200px",
   display: "flex",
   justifyContent: "space-evenly",
-  alignItems: "center",
-  "@media (max-width: 1280px)": {
-    width: "1200px"
-  }
+  alignItems: "center"
 });

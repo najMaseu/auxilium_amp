@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from "react";
 //@ts-ignore
-import sound from "/Users/mac/Desktop/auxilium_amp/src/static/sound.wav";
+import sound from "../../static/sound.wav";
 import { drawAnalyser } from "../../helpers/drawAnalyser";
 import { canvas } from "./WebPlayer.styles";
 
