@@ -11,7 +11,6 @@ export const StartView: React.FC<StartViewProps> = ({ scrollToRef }) => {
   const startView = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    console.log(startView.current?.firstChild?.firstChild);
     anime({
       targets: startView.current?.firstChild?.firstChild,
       scale: 0.9,

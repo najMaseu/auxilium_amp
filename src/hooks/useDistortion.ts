@@ -1,7 +1,11 @@
 import { useState } from "react";
+import { useGain } from "./useGain";
 
 export const useDistortion = (currentAudioContext: AudioContext) => {
-  const [amount, setDistortionAmount] = useState(400);
+  const [distAmount, setDistortionAmount] = useState(3600);
+
+  const { gainNode } = useGain(currentAudioContext, 1);
+
   const distortion = currentAudioContext.createWaveShaper();
 
   const makeDistortionCurve = (value: number, context: AudioContext) => {
@@ -15,11 +19,12 @@ export const useDistortion = (currentAudioContext: AudioContext) => {
     });
   };
 
-  distortion.curve = makeDistortionCurve(amount, currentAudioContext);
+  distortion.curve = makeDistortionCurve(distAmount, currentAudioContext);
   distortion.oversample = "4x";
+  const distortionModule = gainNode.connect(distortion);
 
   return {
-    distortion,
+    distortionModule,
     setDistortionAmount
   };
 };
