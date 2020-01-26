@@ -2,11 +2,14 @@ import React, { useRef, useEffect } from "react";
 //@ts-ignore
 import { drawAnalyser } from "../../helpers/drawAnalyser";
 import { canvas } from "./WebPlayer.styles";
+import { useDistortion } from "../../hooks/useDistortion";
 
 export const WebPlayer: React.FC = () => {
   const drawing = useRef<HTMLCanvasElement>(null);
 
   const audioCtx = new window.AudioContext();
+
+  const { distortion, setDistortionAmount } = useDistortion(audioCtx);
   const analyser = audioCtx.createAnalyser();
   analyser.connect(audioCtx.destination);
   analyser.fftSize = 32;
@@ -26,13 +29,13 @@ export const WebPlayer: React.FC = () => {
 
       const source = audioCtx.createMediaStreamSource(audioStream);
 
-      source.connect(analyser);
+      source.connect(distortion).connect(analyser);
     })();
 
     const canvasCtx = drawing.current!.getContext("2d");
 
     drawAnalyser(dataArray, analyser, canvasCtx!);
-  }, [analyser, audioCtx, dataArray]);
+  }, [analyser, audioCtx, dataArray, distortion]);
 
   return (
     <canvas
