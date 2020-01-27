@@ -1,6 +1,8 @@
 import React, { useRef, useEffect } from "react";
 //@ts-ignore
 import cabImpulse from "../../static/Cab/cabImpulse.wav";
+//@ts-ignore
+import reverbImpulse from "../../static/Rev/reverbImpulse.wav";
 import { drawAnalyser } from "../../helpers/drawAnalyser";
 import { canvas } from "./WebPlayer.styles";
 import { useDistortion } from "../../hooks/useDistortion";
@@ -13,12 +15,22 @@ export const WebPlayer: React.FC = () => {
   const audioCtx = new window.AudioContext();
 
   const { distortionModule } = useDistortion(audioCtx);
-  const { gainNode } = useGain(audioCtx, 0.5);
+  const { gainNode: distortionGain } = useGain(audioCtx, 1);
+  const {
+    gainNode: reverbWet,
+    setGainAmount: setReverbWet,
+    gainAmount: reverbWetAmount
+  } = useGain(audioCtx, 0);
+  const { gainNode: reverbDry, setGainAmount: setReverbDry } = useGain(
+    audioCtx,
+    0
+  );
 
   const analyser = audioCtx.createAnalyser();
   analyser.fftSize = 1024;
 
-  const convolver = audioCtx.createConvolver();
+  const cabConvolver = audioCtx.createConvolver();
+  const reverbConvolver = audioCtx.createConvolver();
 
   const dataArray = new Uint8Array(analyser.frequencyBinCount);
 
@@ -35,13 +47,29 @@ export const WebPlayer: React.FC = () => {
 
       const source = audioCtx.createMediaStreamSource(audioStream);
 
-      if (!convolver.buffer)
-        convolver.buffer = await getImpulseBuffer(audioCtx, cabImpulse);
+      if (!cabConvolver.buffer)
+        cabConvolver.buffer = await getImpulseBuffer(audioCtx, cabImpulse);
+
+      if (!reverbConvolver.buffer)
+        reverbConvolver.buffer = await getImpulseBuffer(
+          audioCtx,
+          reverbImpulse
+        );
 
       source
         .connect(distortionModule)
-        .connect(convolver)
-        .connect(gainNode)
+        .connect(distortionGain)
+        .connect(cabConvolver)
+        .connect(reverbConvolver)
+        .connect(reverbWet)
+        .connect(analyser)
+        .connect(audioCtx.destination);
+
+      source
+        .connect(distortionModule)
+        .connect(distortionGain)
+        .connect(cabConvolver)
+        .connect(reverbDry)
         .connect(analyser)
         .connect(audioCtx.destination);
     })();
@@ -49,8 +77,22 @@ export const WebPlayer: React.FC = () => {
     const canvasCtx = drawing.current!.getContext("2d");
 
     drawAnalyser(dataArray, analyser, canvasCtx!);
-  }, [analyser, audioCtx, dataArray, distortionModule, gainNode, convolver]);
+  }, [
+    analyser,
+    audioCtx,
+    cabConvolver,
+    dataArray,
+    distortionGain,
+    distortionModule,
+    reverbConvolver,
+    reverbWet,
+    reverbDry
+  ]);
 
+  useEffect(() => {
+    setReverbWet(0.5);
+    setReverbDry(1 - reverbWetAmount);
+  }, [setReverbWet, setReverbDry, reverbWetAmount]);
   return (
     <canvas
       className={canvas}

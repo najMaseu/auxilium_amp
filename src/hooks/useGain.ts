@@ -10,6 +10,7 @@ export const useGain = (
 
   return {
     gainNode,
-    setGainAmount
+    setGainAmount,
+    gainAmount
   };
 };
