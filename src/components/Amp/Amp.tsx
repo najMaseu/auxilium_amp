@@ -4,12 +4,12 @@ import cabImpulse from "../../static/Cab/cabImpulse.wav";
 //@ts-ignore
 import reverbImpulse from "../../static/Rev/reverbImpulse.wav";
 import { drawAnalyser } from "../../helpers/drawAnalyser";
-import { canvas } from "./WebPlayer.styles";
+import { canvas } from "./Amp.styles";
 import { useDistortion } from "../../hooks/useDistortion";
 import { useGain } from "../../hooks/useGain";
 import { getImpulseBuffer } from "../../helpers/getImpulse";
 
-export const WebPlayer: React.FC = () => {
+export const Amp: React.FC = () => {
   const drawing = useRef<HTMLCanvasElement>(null);
 
   const audioCtx = new window.AudioContext();
