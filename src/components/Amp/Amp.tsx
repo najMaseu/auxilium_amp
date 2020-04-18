@@ -2,7 +2,6 @@ import React, { useRef, useEffect } from "react";
 //@ts-ignore
 import cabImpulse from "../../static/Cab/cabImpulse.wav";
 //@ts-ignore
-import reverbImpulse from "../../static/Rev/reverbImpulse.wav";
 import { drawAnalyser } from "../../helpers/drawAnalyser";
 import { canvas } from "./Amp.styles";
 import { useDistortion } from "../../hooks/useDistortion";
@@ -16,15 +15,6 @@ export const Amp: React.FC = () => {
 
   const { distortionModule } = useDistortion(audioCtx);
   const { gainNode: distortionGain } = useGain(audioCtx, 1);
-  const {
-    gainNode: reverbWet,
-    setGainAmount: setReverbWet,
-    gainAmount: reverbWetAmount
-  } = useGain(audioCtx, 0);
-  const { gainNode: reverbDry, setGainAmount: setReverbDry } = useGain(
-    audioCtx,
-    0
-  );
 
   const analyser = audioCtx.createAnalyser();
   analyser.fftSize = 1024;
@@ -50,26 +40,10 @@ export const Amp: React.FC = () => {
       if (!cabConvolver.buffer)
         cabConvolver.buffer = await getImpulseBuffer(audioCtx, cabImpulse);
 
-      if (!reverbConvolver.buffer)
-        reverbConvolver.buffer = await getImpulseBuffer(
-          audioCtx,
-          reverbImpulse
-        );
-
       source
         .connect(distortionModule)
         .connect(distortionGain)
         .connect(cabConvolver)
-        .connect(reverbConvolver)
-        .connect(reverbWet)
-        .connect(analyser)
-        .connect(audioCtx.destination);
-
-      source
-        .connect(distortionModule)
-        .connect(distortionGain)
-        .connect(cabConvolver)
-        .connect(reverbDry)
         .connect(analyser)
         .connect(audioCtx.destination);
     })();
@@ -84,15 +58,9 @@ export const Amp: React.FC = () => {
     dataArray,
     distortionGain,
     distortionModule,
-    reverbConvolver,
-    reverbWet,
-    reverbDry
+    reverbConvolver.buffer
   ]);
 
-  useEffect(() => {
-    setReverbWet(0.5);
-    setReverbDry(1 - reverbWetAmount);
-  }, [setReverbWet, setReverbDry, reverbWetAmount]);
   return (
     <canvas
       className={canvas}
