@@ -12,7 +12,7 @@ export const header = css({
     bottom: "50%",
     transform: "translateX(400px)",
     opacity: 0,
-
+    boxShadow: "none",
     h1: {
       display: "inline",
       background: "white",
@@ -20,6 +20,7 @@ export const header = css({
       fontSize: "4rem",
       fontWeight: 500,
       border: "none",
+      marginBottom: "0.5rem",
       ":nth-child(2)": {
         paddingTop: 5,
         paddingBottom: 14
@@ -31,7 +32,7 @@ export const header = css({
       border: "none",
       marginTop: 30
     },
-    "@media (max-width: 1280px)": {
+    "@media (max-width: 1520px)": {
       h1: {
         fontSize: "2.5em",
         padding: "10px 20px 0 20px"

@@ -16,7 +16,7 @@ export const drawAnalyser = (
 
   soundDataArray.forEach((instance: number, index: number) => {
     if (index % 64 === 0) {
-      const barHeight = instance < 127 ? 3 : Math.pow(instance - 123, 3);
+      const barHeight = instance < 127 ? 3 : Math.pow(instance - 123, 2);
 
       canvasContext2d!.fillStyle = "white";
       canvasContext2d!.fillRect(x, 300 - barHeight / 2, 84, barHeight);

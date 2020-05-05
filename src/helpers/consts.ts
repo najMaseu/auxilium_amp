@@ -1,3 +1,3 @@
 export enum fontFamilies {
-  ROBOTO = "Roboto"
+  ROBOTO = "roboto, helvetica"
 }
