@@ -8,13 +8,20 @@ interface ManualProps {
 }
 
 export const Manual: React.FC<ManualProps> = ({ isVisible, onClose }) => {
-  const modal = useRef(null);
+  const modal = useRef<HTMLDivElement>(null);
+
+  const closeModal = (e: any) => {
+    if (modal.current && modal.current.contains(e.target)) {
+      return;
+    }
+    onClose();
+  };
 
   useEffect(() => {
-    document.addEventListener("mousedown", onClose);
+    document.addEventListener("mousedown", closeModal);
 
     return () => {
-      document.removeEventListener("mousedown", onClose);
+      document.removeEventListener("mousedown", closeModal);
     };
   });
 

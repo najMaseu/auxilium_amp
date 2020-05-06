@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import { Header } from "../components/Header/Header";
-import { css } from "emotion";
+import { css, cx } from "emotion";
 import anime from "animejs";
 import { fontFamilies } from "../helpers/consts";
 import { Manual } from "../components/Manual/Manual";
@@ -48,7 +48,10 @@ export const StartView: React.FC<StartViewProps> = ({ scrollToRef }) => {
       >
         <path d="M7.5 4.5L6.44 5.56 9.88 9l-3.44 3.44L7.5 13.5 12 9z" />
       </svg>
-      <div className={helpIcon} onClick={onHelpClick}>
+      <div
+        className={cx(helpIcon, isManualVisible && notClickable)}
+        onClick={onHelpClick}
+      >
         <span>?</span>
       </div>
     </div>
@@ -86,4 +89,8 @@ const helpIcon = css({
   bottom: "3rem",
   left: "3rem",
   cursor: "pointer"
+});
+
+const notClickable = css({
+  pointerEvents: "none"
 });
