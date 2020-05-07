@@ -1,9 +1,6 @@
 import React, { useRef } from "react";
 import { injectGlobal } from "emotion";
 import { StartView } from "./views/StartView";
-import { Client as Styletron } from "styletron-engine-atomic";
-import { Provider as StyletronProvider } from "styletron-react";
-import { DarkTheme, BaseProvider } from "baseui";
 import { AmpView } from "./views/AmpView";
 
 injectGlobal`
@@ -53,7 +50,6 @@ table {
 `;
 
 const App: React.FC = () => {
-  const engine = new Styletron();
   const ampRef = useRef<HTMLDivElement>(null);
 
   const scrollToAmp = () => {
@@ -65,14 +61,9 @@ const App: React.FC = () => {
 
   return (
     <>
-      {/* <Spinner /> */}
-      <StyletronProvider value={engine}>
-        <BaseProvider theme={DarkTheme}>
-          <StartView scrollToRef={scrollToAmp} />
-          <div ref={ampRef}></div>
-          <AmpView />
-        </BaseProvider>
-      </StyletronProvider>
+      <StartView scrollToRef={scrollToAmp} />
+      <div ref={ampRef}></div>
+      <AmpView />
     </>
   );
 };
