@@ -30,8 +30,8 @@ export const Manual: React.FC<ManualProps> = ({ isVisible, onClose }) => {
       <h3>MANUAL</h3>
       <ol>
         <li>Plug in your guitar and set audio input</li>
-        <li>Give the browser access to the signal from mic input </li>
         <li>Click start</li>
+        <li>Give the browser access to the signal from your input </li>
       </ol>
       <p>Please use Google Chrome or Chrome-based browsers (ex. Brave)*</p>
     </div>
